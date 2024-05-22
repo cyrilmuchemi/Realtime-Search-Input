@@ -27,6 +27,7 @@
 
 <div class="analytics">
   <h1>Top Searches</h1>
+<% if @top_searches.any? %>
     <table class="top-searches-table">
     <thead>
       <tr>
@@ -35,19 +36,19 @@
       </tr>
     </thead>
     <tbody>
-      <% if @top_searches.any? %>
         <% @top_searches.each do |search| %>
           <tr>
             <td><%= search.query %></td>
             <td><%= search.count %> searches</td>
           </tr>
         <% end %>
-      <% else %>
         <tr>
           <td colspan="2" class="no-searches">No searches yet.</td>
         </tr>
-      <% end %>
     </tbody>
 </table>
+<% else %>
+<div><h2>NO Qeries Yet!</h2></div>
+<% end %>
 </div>
 
