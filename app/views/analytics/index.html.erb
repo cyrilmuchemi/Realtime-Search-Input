@@ -1,0 +1,6 @@
+<h1>Top Searches</h1>
+<ul>
+  <% @top_searches.each do |search| %>
+    <li><%= search.query %> - <%= search.count %></li>
+  <% end %>
+</ul>

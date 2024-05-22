@@ -1,0 +1,19 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  username: <%= ENV['POSTGRES_USER'] %>
+  password: <%= ENV['POSTGRES_PASSWORD'] %>
+  host: <%= ENV['POSTGRES_HOST'] %>
+
+development:
+  <<: *default
+  database: search_analytics_app_development
+
+test:
+  <<: *default
+  database: search_analytics_app_test
+
+production:
+  <<: *default
+  database: search_analytics_app_production
