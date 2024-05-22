@@ -24,7 +24,7 @@ gem 'redis', '~> 4.0'
 gem 'stimulus-rails'
 gem 'rspec-rails', '~> 5.0'
 gem 'sidekiq'
-gem 'webpacker'
+gem 'jsbundling-rails'
 
 
 # Use Active Storage variant
