@@ -171,6 +171,11 @@ body{
         font-size: 72px;
     }
 
+    ul{
+        list-style: none;
+        color: #fff;
+    }
+
     .form__group {
         position: relative;
         padding: 15px 0 0;
@@ -231,7 +236,6 @@ body{
         &:required,&:invalid { box-shadow:none; }
     }
 }
-  
 
 
   

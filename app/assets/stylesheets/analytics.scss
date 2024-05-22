@@ -1,3 +1,46 @@
 // Place all the styles related to the Analytics controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+// Place all the styles related to the Home controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
+.analytics{
+    min-height: 100%;
+    height: 100%;
+    padding-left: 140px;
+    color: #fff;
+    margin-top: 0;
+    background: #010000;
+    display: flex; /* Add this line */
+    flex-direction: column;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+
+    h1{
+      color: #fff;
+      font-size: 52px;
+    }
+
+    .top-searches-table {
+      width: 100%; /* Adjust width as needed */
+      border-collapse: collapse;
+      border: 1px solid #ddd;
+      margin: 1em 0; /* Add some margin */
+    }
+    
+    .top-searches-table thead th {
+      padding: 0.5em 1em;
+      text-align: left;
+    }
+    
+    .top-searches-table tbody tr {
+      padding: 0.5em 1em;
+    }
+    .no-searches {
+      text-align: center;
+      font-style: italic;
+    }
+    
+}

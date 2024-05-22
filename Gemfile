@@ -25,6 +25,8 @@ gem 'stimulus-rails'
 gem 'rspec-rails', '~> 5.0'
 gem 'sidekiq'
 
+gem 'webpacker'
+
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'

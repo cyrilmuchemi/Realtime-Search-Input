@@ -27,7 +27,7 @@
 
 <div class="wrap-all-the-things">
     <h1>Search Article</h1>
-    <form action="/search" method="get" class="form__field">
-    <input type="text" name="query" class="form__field" placeholder="Search..." />
+    <form method="get" id="search-form" action="/search/query" class="form__field">
+    <input type="text" name="query" class="form__field" placeholder="Search..." data-controller="search" data-target="search.input" />
     </form>
 </div>

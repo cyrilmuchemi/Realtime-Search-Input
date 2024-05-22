@@ -281,7 +281,7 @@ DEPENDENCIES
   turbolinks (~> 5)
   tzinfo-data
   web-console (>= 4.1.0)
-  webpacker (>= 4.0)
+  webpacker
 
 RUBY VERSION
    ruby 3.2.3p157
