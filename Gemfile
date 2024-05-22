@@ -25,6 +25,7 @@ gem 'stimulus-rails'
 gem 'rspec-rails', '~> 5.0'
 gem 'sidekiq'
 gem 'jsbundling-rails'
+gem 'rails-controller-testing', '~> 0.0.3'
 
 
 # Use Active Storage variant
@@ -55,5 +56,16 @@ group :test do
   gem 'selenium-webdriver', '>= 4.0.0.rc1'
 end
 
+group :development, :test do
+  gem 'factory_bot_rails'
+end
+
+group :test do
+  gem 'shoulda-matchers', '~> 4.0'
+end
+
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+gem "faker", "~> 3.3"
