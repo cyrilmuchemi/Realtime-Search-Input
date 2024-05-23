@@ -16,7 +16,7 @@ class AnalyticsController < ApplicationController
   end
 
   def retrieve_top_searches_from_redis
-    top_searches_with_scores = @redis_service.zrevrangebyscore("top_searches", 1, "+inf")
+    top_searches_with_scores = @redis_service.zrevrangebyscore("global_search_queries", 1, "+inf")
     top_searches = top_searches_with_scores.map do |search, score|
       { query: search, count: score.to_i }
     end
