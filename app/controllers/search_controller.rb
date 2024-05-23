@@ -14,17 +14,6 @@ class SearchController < ApplicationController
       return
     end
 
-    Rails.logger.debug "Received query: #{query}"
-    Rails.logger.debug "IP address: #{ip_address}, User identifier: #{user_identifier}"
-
-    last_query = SearchQuery.where(ip_address: ip_address, user_identifier: user_identifier).order(created_at: :desc).first
-
-    if last_query && query.start_with?(last_query.query) && !last_query.completed
-      last_query.update(query: query)
-    else
-      SearchQuery.create(ip_address: ip_address, user_identifier: user_identifier, query: query, completed: false)
-    end
-
     key = "search_queries:#{user_identifier}"
     @redis_service.hincrby(key, query, 1)
 
