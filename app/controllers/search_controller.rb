@@ -17,9 +17,8 @@ class SearchController < ApplicationController
     key = "search_queries:#{user_identifier}"
     @redis_service.hincrby(key, query, 1)
 
-    # Update analytics in Redis
-    analytics_key = "top_searches"
-    @redis_service.zincrby(analytics_key, 1, query)
+    # Increment the search count in the sorted set for analytics
+    @redis_service.zincrby("top_searches", 1, query)
 
     render json: { message: 'Query logged successfully' }
   rescue Redis::BaseError => e
