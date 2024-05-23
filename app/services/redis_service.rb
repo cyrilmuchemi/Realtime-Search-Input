@@ -1,6 +1,6 @@
 class RedisService
   def initialize
-    @redis = Redis.new(ENV['REDIS_URL'])
+    @redis = Redis.new(url: ENV['REDIS_URL'])
   rescue Redis::BaseError => e
     Rails.logger.error "Error connecting to Redis: #{e.message}"
     raise e
