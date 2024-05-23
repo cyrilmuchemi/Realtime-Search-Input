@@ -10,25 +10,28 @@ class SearchController < ApplicationController
     user_identifier = session.id.to_s
 
     if query.empty?
-      render json: { error: 'Query parameter is missing or empty' }, status: :bad_request
+      flash[:error] = 'Query parameter is missing or empty'
+      redirect_to root_path # Redirect to the root path or any other appropriate path
       return
     end
 
     key = "search_queries:#{user_identifier}"
     @redis_service.hincrby(key, query, 1)
 
-    # Increment the search count in the sorted set for analytics
-    @redis_service.zincrby("top_searches", 1, query)
-
-    render json: { message: 'Query logged successfully' }
+    redirect_to analytics_path # Redirect to the analytics page
   rescue Redis::BaseError => e
     Rails.logger.error "Error interacting with Redis: #{e.message}"
-    render json: { error: 'Internal server error' }, status: :internal_server_error
+    flash[:error] = 'Internal server error'
+    redirect_to root_path # Redirect to the root path or any other appropriate path
   end
 
   private
 
   def set_redis_service
     @redis_service = RedisService.new
+  rescue Redis::BaseError => e
+    Rails.logger.error "Error initializing RedisService: #{e.message}"
+    flash[:error] = 'Internal server error'
+    redirect_to root_path # Redirect to the root path or any other appropriate path
   end
 end
