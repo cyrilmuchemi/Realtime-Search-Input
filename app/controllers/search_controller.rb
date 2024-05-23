@@ -25,15 +25,6 @@ class SearchController < ApplicationController
       SearchQuery.create(ip_address: ip_address, user_identifier: user_identifier, query: query, completed: false)
     end
 
-    if query != last_query&.query
-      last_query.update(completed: true) if last_query
-
-      analytics = SearchAnalytics.find_or_create_by(query: query)
-      Rails.logger.debug "Before Update: #{analytics.inspect}"
-      analytics.update(count: analytics.count.to_i + 1)
-      Rails.logger.debug "After Update: #{analytics.inspect}"
-    end
-
     key = "search_queries:#{user_identifier}"
     @redis_service.hincrby(key, query, 1)
 
