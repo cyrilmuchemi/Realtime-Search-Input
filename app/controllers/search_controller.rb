@@ -17,6 +17,10 @@ class SearchController < ApplicationController
     key = "search_queries:#{user_identifier}"
     @redis_service.hincrby(key, query, 1)
 
+    # Update analytics in Redis
+    analytics_key = "top_searches"
+    @redis_service.zincrby(analytics_key, 1, query)
+
     render json: { message: 'Query logged successfully' }
   rescue Redis::BaseError => e
     Rails.logger.error "Error interacting with Redis: #{e.message}"

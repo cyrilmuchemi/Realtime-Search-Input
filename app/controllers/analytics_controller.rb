@@ -1,28 +1,35 @@
-class AnalyticsController < ApplicationController
-  before_action :set_redis_service
+class SearchController < ApplicationController
+  before_action :set_redis_service, only: [:query]
 
   def index
-    Rails.logger.debug "SearchAnalytics is defined: #{defined?(SearchAnalytics)}"
-    @top_searches = retrieve_top_searches_from_redis
-  rescue Redis::ConnectionError => e
-    Rails.logger.error "Error connecting to Redis: #{e.message}"
-    @top_searches = []
+  end
+
+  def query
+    query = params[:query].strip
+    ip_address = request.remote_ip
+    user_identifier = session.id.to_s
+
+    if query.empty?
+      render json: { error: 'Query parameter is missing or empty' }, status: :bad_request
+      return
+    end
+
+    key = "search_queries:#{user_identifier}"
+    @redis_service.hincrby(key, query, 1)
+
+    # Update analytics in Redis
+    analytics_key = "top_searches"
+    @redis_service.zincrby(analytics_key, 1, query)
+
+    render json: { message: 'Query logged successfully' }
+  rescue Redis::BaseError => e
+    Rails.logger.error "Error interacting with Redis: #{e.message}"
+    render json: { error: 'Internal server error' }, status: :internal_server_error
   end
 
   private
 
   def set_redis_service
     @redis_service = RedisService.new
-  end
-
-  def retrieve_top_searches_from_redis
-    top_searches_with_scores = @redis_service.zrevrangebyscore("top_searches", 1, "+inf")
-    top_searches = top_searches_with_scores.map do |search, score|
-      { query: search, count: score.to_i }
-    end
-    top_searches
-  rescue Redis::BaseError => e
-    Rails.logger.error "Error retrieving from Redis: #{e.message}"
-    []
   end
 end
