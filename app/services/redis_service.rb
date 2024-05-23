@@ -11,7 +11,7 @@ class RedisService
     end
   
     def zrevrangebyscore(key, min, max)
-      @redis.zrevrangebyscore(key, min, max, options)
+      @redis.zrevrangebyscore(key, min, max)
     rescue Redis::BaseError => e
       Rails.logger.error "Redis error on ZREVRANGEBYSCORE: #{e.message}"
       []
